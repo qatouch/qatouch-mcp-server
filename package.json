@@ -1,6 +1,6 @@
 {
   "name": "qatouch-mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "QA Touch MCP Server",
   "type": "module",
   "main": "src/index.js",
@@ -10,12 +10,20 @@
   "scripts": {
     "start": "node src/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qatouch/qatouch-mcp-server.git"
+  },
   "keywords": [
     "mcp",
     "qatouch",
     "testing"
   ],
+  "author": "QA Touch",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qatouch/qatouch-mcp-server/issues"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "axios": "^1.16.1"
