@@ -23,6 +23,31 @@ import {
   handleDefectTool
 } from "./tools/defects.js";
 
+import {
+    testRunTools,
+    handleTestRunTool
+} from "./tools/testruns.js";
+
+import {
+    moduleTools,
+    handleModuleTool
+} from "./tools/modules.js";
+
+import {
+    releaseTools,
+    handleReleaseTool
+} from "./tools/releases.js";
+
+import {
+    requirementTools,
+    handleRequirementTool
+} from "./tools/requirements.js";
+
+import {
+    createTestCaseTools,
+    handleCreateTestCaseTool
+} from "./tools/createTestCase.js";
+
 const server = new Server(
     {
       name: "qatouch-mcp-server",
@@ -40,9 +65,14 @@ server.setRequestHandler(
     async () => {
       return {
         tools: [
-          ...projectTools,
-          ...testcaseTools,
-          ...defectTools
+            ...projectTools,
+            ...testcaseTools,
+            ...testRunTools,
+            ...moduleTools,
+            ...defectTools,
+            ...releaseTools,
+            ...requirementTools,
+            ...createTestCaseTools
         ]
       };
     }
@@ -75,6 +105,42 @@ server.setRequestHandler(
         if (!result) {
           result =
               await handleDefectTool(
+                  name,
+                  args
+              );
+        }
+        if (!result) {
+          result =
+              await handleModuleTool(
+                  name,
+                  args
+              );
+        }
+        if (!result) {
+          result =
+              await handleCreateTestCaseTool(
+                  name,
+                  args
+              );
+        }
+        if (!result) {
+          result =
+              await handleTestRunTool(
+                  name,
+                  args
+              );
+        }
+
+        if (!result) {
+          result =
+              await handleReleaseTool(
+                  name,
+                  args
+              );
+        }
+        if (!result) {
+          result =
+              await handleRequirementTool(
                   name,
                   args
               );
