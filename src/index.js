@@ -51,7 +51,7 @@ import {
 const server = new Server(
     {
       name: "qatouch-mcp-server",
-      version: "1.0.3"
+      version: "1.0.2"
     },
     {
       capabilities: {
