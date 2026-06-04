@@ -32,3 +32,16 @@ node src/index.js
   }
 }
 </pre>
+
+## Example User Prompts
+
+<pre>
+<b>Once connected, users can ask:</b>
+List all QA Touch projects.
+Show test cases from Project PROJECT_KEY.
+Get all open defects.
+Show test runs from project PROJECT_KEY
+Show all modules from project PROJECT_KEY
+Show releases from project PROJECT_KEY
+Show all requirements from project PROJECT_KEY
+</pre>
