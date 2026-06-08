@@ -1,0 +1,263 @@
+QA Touch MCP Server - Prompt Guide
+
+Use these prompts in Claude Desktop, Claude Code, Cursor, Windsurf, VS Code MCP clients, ChatGPT MCP clients, or any MCP-compatible AI assistant connected to this QA Touch MCP server.
+
+Replace placeholders before use:
+- PROJECT_KEY: QA Touch project key
+- SECTION_KEY: QA Touch section/module key
+- TEST_RUN_KEY: QA Touch test run key
+- RESULT_KEY: QA Touch test run result key
+- RELEASE_KEY: QA Touch release/milestone key
+- DOCUMENT_KEY: QA Touch requirement document key
+- TC-123: example test case code or search text
+
+---------------------------------------
+Projects
+---------------------------------------
+
+Prompt examples:
+- List all projects
+- Show all QA Touch projects
+- What projects do I have access to?
+- Get project list
+- Display all projects
+- Count all projects
+- How many QA Touch projects are available?
+- Show project details for PROJECT_KEY
+- Find the project with key PROJECT_KEY
+- Create a new QA Touch project named Mobile App Regression
+- Add a project called Checkout QA
+- Create project "Release 2.0 Testing"
+
+---------------------------------------
+Workspace
+---------------------------------------
+
+Prompt examples:
+- List all workspaces
+- Show QA Touch workspaces
+- Get workspace list
+- Which workspaces are available?
+- Display all workspace records
+
+---------------------------------------
+Test Cases
+---------------------------------------
+
+Prompt examples:
+- List all test cases from project PROJECT_KEY
+- Show test cases in PROJECT_KEY
+- Get all test cases for PROJECT_KEY
+- Fetch test cases from PROJECT_KEY
+- Display project test cases
+- Count test cases in PROJECT_KEY
+- How many test cases are in PROJECT_KEY?
+- Search test cases containing "login" in PROJECT_KEY
+- Find all test cases related to login functionality in PROJECT_KEY
+- Search PROJECT_KEY test cases for "payment"
+- Show test case TC-123 from PROJECT_KEY
+- Find test cases with "password reset" in the title or description
+- Show blocked test cases in PROJECT_KEY
+- Show recent failed test cases from PROJECT_KEY
+- Create a new test case in PROJECT_KEY under SECTION_KEY for valid login
+- Create a test case titled "Verify successful login" in PROJECT_KEY with four steps
+- Add a login validation test case to SECTION_KEY
+- Generate and create a professional test case for password reset in PROJECT_KEY
+- Create 8 test cases in PROJECT_KEY under SECTION_KEY for login functionality
+- Generate bulk test cases for checkout and create them in QA Touch
+- Create positive, negative, validation, boundary, and usability test cases for password reset
+- Add 10 detailed test cases for user registration in PROJECT_KEY
+- Create an exploratory test case in PROJECT_KEY under SECTION_KEY for checkout usability
+- Add exploratory session "Explore login edge cases"
+- Create a text template test case in PROJECT_KEY for login
+- Add a simple text test case titled "Verify logout"
+
+---------------------------------------
+Modules
+---------------------------------------
+
+Prompt examples:
+- Get modules from project PROJECT_KEY
+- List all modules in PROJECT_KEY
+- Show sections/modules for PROJECT_KEY
+- Fetch module list from PROJECT_KEY
+- Display project modules
+- Count modules in PROJECT_KEY
+- How many modules are available in PROJECT_KEY?
+- Search modules for "login" in PROJECT_KEY
+- Find module named Authentication in PROJECT_KEY
+- Look for checkout modules in PROJECT_KEY
+- Show sections matching "payment"
+- Create a module named Login in PROJECT_KEY
+- Add module "Checkout" to PROJECT_KEY
+- Create section "Payment Gateway" in PROJECT_KEY
+- Add a new module for User Registration
+
+---------------------------------------
+Releases and Milestones
+---------------------------------------
+
+Prompt examples:
+- Get milestones from PROJECT_KEY
+- Get releases from PROJECT_KEY
+- List all releases in PROJECT_KEY
+- Show milestones for PROJECT_KEY
+- Display project release list
+- Count releases in PROJECT_KEY
+- How many milestones are in PROJECT_KEY?
+- Search releases for "v2.0" in PROJECT_KEY
+- Find milestones containing "June"
+- Show release matching "Regression"
+- Create release "v2.0 Regression" in PROJECT_KEY
+- Add milestone "June Release" to PROJECT_KEY
+- Create a new milestone for Sprint 12
+- Add release "Mobile App 1.4"
+
+---------------------------------------
+Test Runs and Execution
+---------------------------------------
+
+Prompt examples:
+- List all test runs from PROJECT_KEY
+- Show test runs in PROJECT_KEY
+- Get all test runs for PROJECT_KEY
+- Display latest test runs
+- Get test plans for PROJECT_KEY
+- Show execution summary for PROJECT_KEY
+- Count test runs in PROJECT_KEY
+- How many test runs are in PROJECT_KEY?
+- Show test run results for TEST_RUN_KEY in PROJECT_KEY
+- List all execution results for test run TEST_RUN_KEY
+- Show failed test cases from TEST_RUN_KEY in PROJECT_KEY
+- Show blocked test cases in test run TEST_RUN_KEY
+- Display execution summary for TEST_RUN_KEY
+- Show result history for RESULT_KEY in TEST_RUN_KEY
+- Get execution history for a failed test case result
+- Show status changes for RESULT_KEY
+- List test run statuses
+- Show available execution statuses
+- What statuses can I use for test results?
+- Mark RESULT_KEY as passed in TEST_RUN_KEY for PROJECT_KEY
+- Update test run result RESULT_KEY to failed
+- Set result RESULT_KEY status to blocked
+- In TEST_RUN_KEY, mark TC-123 failed and TC-124 passed
+- Batch update results for TEST_RUN_KEY in PROJECT_KEY
+- Set TC-123 and TC-456 to blocked with comment "Environment issue"
+- Get team members from PROJECT_KEY
+- List available testers for PROJECT_KEY
+- Show users available for test execution
+- Who can be assigned testing in PROJECT_KEY?
+
+---------------------------------------
+Defects
+---------------------------------------
+
+Prompt examples:
+- List defects in PROJECT_KEY
+- Show all defects for PROJECT_KEY
+- Get high priority defects in PROJECT_KEY
+- Show open bugs for PROJECT_KEY
+- Display defects linked to failed test cases
+- Count defects in PROJECT_KEY
+- How many defects are in PROJECT_KEY?
+- Search defects for "login" in PROJECT_KEY
+- Find defects containing "payment failure"
+- Show defects related to checkout
+- Search issue summary for "timeout"
+- Create a high priority defect in PROJECT_KEY: Login fails with valid credentials
+- Log a defect for payment timeout with priority High
+- Add bug "Checkout page crashes on submit"
+- Create defect "Password reset email not received"
+- List defect statuses
+- Show available bug statuses
+- List defect severities
+- Show available bug severity levels
+- List defect issue types
+- Show available issue types
+- List defect environments
+- Show available bug environments
+
+---------------------------------------
+Requirements
+---------------------------------------
+
+Prompt examples:
+- List requirements in PROJECT_KEY
+- Show all requirements for PROJECT_KEY
+- Get project requirements
+- Display requirements from PROJECT_KEY
+- Show requirements related to login
+- Count requirements in PROJECT_KEY
+- How many requirements are in PROJECT_KEY?
+- Search requirements for "login" in PROJECT_KEY
+- Find requirements mentioning "password reset"
+- Show requirements related to checkout
+- Search requirement descriptions for "payment"
+- List requirement documents in PROJECT_KEY
+- Show requirement docs for PROJECT_KEY
+- Get all requirement documents
+- Create requirement document "Login Requirements" in PROJECT_KEY for RELEASE_KEY
+- Add a requirement document for Sprint 12
+- Create a requirements doc titled "Checkout Scope"
+- Create requirement "User can log in with valid credentials" in DOCUMENT_KEY
+- Add a requirement for password reset in PROJECT_KEY
+- Create a checkout requirement with this description
+
+---------------------------------------
+Project-Wide Search
+---------------------------------------
+
+Prompt examples:
+- Search PROJECT_KEY for "login"
+- Search across the project for checkout
+- Find all project records related to payment
+- Search test cases, modules, requirements, defects, and releases for "password reset"
+- Generate testing summary for PROJECT_KEY around login
+- Find all QA Touch records mentioning TC-123
+
+---------------------------------------
+Power User Prompts
+---------------------------------------
+
+Prompt examples:
+- Show failed test cases from the latest test run in PROJECT_KEY
+- Find all test cases related to login functionality in PROJECT_KEY
+- Summarize testing progress for PROJECT_KEY
+- Compare execution results between the last two test runs in PROJECT_KEY
+- Show defects linked to failed test cases in TEST_RUN_KEY
+- Generate a QA status report for PROJECT_KEY
+- Identify unexecuted test cases in TEST_RUN_KEY
+- List flaky test cases that fail frequently based on result history
+- Show blocked test cases in the latest test run
+- Show high priority defects in PROJECT_KEY
+- Show test execution statistics for PROJECT_KEY
+- Generate testing summary for PROJECT_KEY including test cases, defects, releases, requirements, and test runs
+- Find modules with no matching test cases by comparing modules and test case titles
+- Show release readiness for PROJECT_KEY and RELEASE_KEY
+- Find requirements that do not appear to have related test cases
+- Show project details for PROJECT_KEY by listing projects and matching the project key
+- Show test case TC-123 by searching test cases in PROJECT_KEY
+- Get test plans for PROJECT_KEY by listing available test runs and summarizing them
+- Get team members for PROJECT_KEY by listing users available for testing
+- Show recent failed test cases by listing recent test runs and reading their results
+
+---------------------------------------
+AI Workflow Examples
+---------------------------------------
+
+Prompt examples:
+- Analyze failed test cases and suggest possible root causes
+- Generate regression test recommendations for PROJECT_KEY based on recent defects
+- Create exploratory testing ideas from existing test cases in PROJECT_KEY
+- Identify duplicate test cases by comparing titles and descriptions
+- Suggest missing edge cases for the login module
+- Generate release readiness summary for RELEASE_KEY in PROJECT_KEY
+- Review all defects containing "payment" and summarize risk
+- Compare requirements against test cases and identify coverage gaps
+- Use current defects to recommend new regression tests
+- Analyze blocked test cases and suggest unblocking actions
+- Build a concise QA dashboard summary for PROJECT_KEY
+- Summarize execution health from TEST_RUN_KEY
+- Create a smoke test suite proposal from existing modules
+- Find risky areas by searching test cases, requirements, defects, and releases for "checkout"
+- Draft a stakeholder QA update from project counts, test runs, failures, and open defects
