@@ -1,6 +1,6 @@
 {
   "name": "qatouch-mcp-server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "QA Touch MCP Server",
   "type": "module",
   "main": "src/index.js",
