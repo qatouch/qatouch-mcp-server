@@ -173,6 +173,7 @@ Restart Claude Desktop after saving the file.
 - Search project ABC for "login"
 - Generate a QA status report for project ABC
 - Identify unexecuted test cases in test run RUN1
+- For more📖 Prompt Examples: [how_to_use.txt](./how_to_use.txt)
 
 ## Development
 

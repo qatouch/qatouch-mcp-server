@@ -219,6 +219,11 @@ import {
     handleSearchProjectTool
 } from "./tools/searchProject.js";
 
+import {
+    projectAnalyticsTools,
+    handleProjectAnalyticsTool
+} from "./tools/getProjectAnalytics.js";
+
 const server = new Server(
     {
       name: "qatouch-mcp-server",
@@ -277,7 +282,8 @@ server.setRequestHandler(
             ...searchRequirementTools,
             ...searchDefectTools,
             ...searchReleaseTools,
-            ...searchProjectTools
+            ...searchProjectTools,
+            ...projectAnalyticsTools,
         ]
       };
     }
@@ -588,6 +594,13 @@ server.setRequestHandler(
                   args
               );
         }
+          if (!result) {
+              result =
+                  await handleProjectAnalyticsTool(
+                      name,
+                      args
+                  );
+          }
 
         if (!result) {
           throw new Error(

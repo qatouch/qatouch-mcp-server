@@ -220,6 +220,8 @@ Power User Prompts
 ---------------------------------------
 
 Prompt examples:
+- Generate a complete project quality dashboard with KPIs, charts, trends, risks, and recommendations.
+- Analyze this project as a QA Director. Review test coverage, execution results, defects, releases, requirements, team activity, and overall quality. Identify risks, bottlenecks, release blockers, and provide actionable recommendations.
 - Show failed test cases from the latest test run in PROJECT_KEY
 - Find all test cases related to login functionality in PROJECT_KEY
 - Summarize testing progress for PROJECT_KEY

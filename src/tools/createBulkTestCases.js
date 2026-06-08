@@ -15,7 +15,7 @@ IMPORTANT:
   - precondition
   - steps
   - expected results
-  
+
 IMPORTANT:
 - Generate a complete professional test case.
 - Every test case MUST contain four or more steps.
@@ -37,6 +37,8 @@ IMPORTANT:
         },
         testCases: {
           type: "array",
+          minItems: 1,
+          maxItems: 10,
           items: {
             type: "object",
             properties: {
@@ -57,6 +59,7 @@ IMPORTANT:
               },
               steps: {
                 type: "array",
+                minItems: 4,
                 items: {
                   type: "object",
                   properties: {
@@ -98,83 +101,161 @@ export async function handleCreateBulkTestCaseTool(
     return null;
   }
 
+  if (!Array.isArray(args.testCases)) {
+    throw new Error(
+        "testCases must be an array."
+    );
+  }
+
   const results = [];
 
   for (const testCase of args.testCases) {
 
+    if (!testCase.caseTitle) {
+      results.push({
+        success: false,
+        title: "Unknown",
+        error: "caseTitle is required"
+      });
+      continue;
+    }
+
+    if (
+        !Array.isArray(testCase.steps)
+    ) {
+      results.push({
+        success: false,
+        title: testCase.caseTitle,
+        error: "steps array is required"
+      });
+      continue;
+    }
+
+    if (
+        testCase.steps.length < 4
+    ) {
+      results.push({
+        success: false,
+        title: testCase.caseTitle,
+        error:
+            "Each test case must contain at least 4 steps"
+      });
+      continue;
+    }
+
+    let invalidStep = false;
+
+    for (const [index, step] of testCase.steps.entries()) {
+      if (
+          !step.step ||
+          !step.expectedResult
+      ) {
+        results.push({
+          success: false,
+          title: testCase.caseTitle,
+          error:
+              `Step ${index + 1} must contain step and expectedResult`
+        });
+
+        invalidStep = true;
+        break;
+      }
+    }
+
+    if (invalidStep) {
+      continue;
+    }
+
     const stepsTemplate = {};
 
-    (testCase.steps || []).forEach(
-        (step, index) => {
+    testCase.steps.forEach(
+        (item, index) => {
           stepsTemplate[index] = {
-            steps: step.step,
+            steps: item.step,
             expected_result:
-            step.expectedResult
+            item.expectedResult
           };
         }
     );
+
+    const requestParams = {
+      projectKey: args.projectKey,
+      sectionKey: args.sectionKey,
+      caseTitle: testCase.caseTitle,
+      description:
+          testCase.description || "",
+      precondition:
+          testCase.precondition || "",
+      reference:
+          testCase.reference || "",
+      estimate:
+          testCase.estimate || "",
+      steps_template:
+          JSON.stringify(
+              stepsTemplate
+          )
+    };
 
     try {
 
       const response =
           await qaTouchApi.post(
-              "/testcase/steps",
+              "/testCase/steps",
               null,
               {
-                params: {
-                  projectKey:
-                  args.projectKey,
-
-                  sectionKey:
-                  args.sectionKey,
-
-                  caseTitle:
-                  testCase.caseTitle,
-
-                  description:
-                      testCase.description || "",
-
-                  precondition:
-                      testCase.precondition || "",
-
-                  reference:
-                      testCase.reference || "",
-
-                  estimate:
-                      testCase.estimate || "",
-
-                  steps_template:
-                      JSON.stringify(
-                          stepsTemplate
-                      )
-                }
+                params: requestParams
               }
           );
 
       results.push({
-        title:
-        testCase.caseTitle,
         success: true,
+        title: testCase.caseTitle,
         response:
-        response.data
+            response?.data?.message ||
+            "Created successfully"
       });
 
     } catch (error) {
 
-      results.push({
-        title:
-        testCase.caseTitle,
-        success: false,
-        error:
-            (
-              error.response &&
-              error.response.data
-            ) ||
-            error.message
-      });
+      let errorMessage =
+          error.message;
 
+      if (error.response?.data) {
+
+        if (
+            typeof error.response.data ===
+            "string"
+        ) {
+
+          errorMessage =
+              error.response.data;
+
+        } else {
+
+          errorMessage =
+              JSON.stringify(
+                  error.response.data
+              );
+        }
+      }
+
+      results.push({
+        success: false,
+        title: testCase.caseTitle,
+        error: errorMessage
+      });
     }
   }
+
+  const created =
+      results.filter(
+          r => r.success
+      ).length;
+
+  const failed =
+      results.filter(
+          r => !r.success
+      ).length;
 
   return {
     content: [
@@ -184,17 +265,8 @@ export async function handleCreateBulkTestCaseTool(
             {
               total:
               args.testCases.length,
-
-              created:
-              results.filter(
-                  r => r.success
-              ).length,
-
-              failed:
-              results.filter(
-                  r => !r.success
-              ).length,
-
+              created,
+              failed,
               results
             },
             null,
