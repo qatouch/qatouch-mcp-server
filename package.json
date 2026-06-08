@@ -17,7 +17,17 @@
   "keywords": [
     "mcp",
     "qatouch",
-    "testing"
+    "testing",
+    "model-context-protocol",
+    "mcp-server",
+    "qa-touch",
+    "testing",
+    "test-management",
+    "test-cases",
+    "test-runs",
+    "defects",
+    "requirements",
+    "claude"
   ],
   "author": "QA Touch",
   "license": "MIT",
