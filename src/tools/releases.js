@@ -10,6 +10,10 @@ export const releaseTools = [
         projectKey: {
           type: "string",
           description: "Project Key"
+        },
+        page: {
+          type: "number",
+          description: "Page number. Defaults to 1"
         }
       },
       required: ["projectKey"]
@@ -24,7 +28,7 @@ export async function handleReleaseTool(
   if (name !== "list_releases") return null;
 
   const response = await qaTouchApi.get(
-      `/getAllMilestones/${args.projectKey}`
+      `/getAllMilestones/${args.projectKey}?page=${args.page || 1}`
   );
 
   return {

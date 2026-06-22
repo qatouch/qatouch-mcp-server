@@ -14,16 +14,34 @@ export const projectTools = [
 export async function handleProjectTool(name) {
   if (name !== "list_projects") return null;
 
-  const response = await qaTouchApi.get("/getAllProjects");
+  let page = 1;
+  let allProjects = [];
+
+  while (true) {
+
+    const response = await qaTouchApi.get(
+      `/getAllProjects?page=${page}`
+    );
+
+    allProjects.push(
+      ...response.data.data
+    );
+
+    if (!response.data.link.next) {
+      break;
+    }
+
+    page++;
+  }
 
   return {
     content: [
       {
         type: "text",
         text: JSON.stringify(
-            response.data,
-            null,
-            2
+          allProjects,
+          null,
+          2
         )
       }
     ]

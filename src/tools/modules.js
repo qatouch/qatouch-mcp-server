@@ -10,6 +10,10 @@ export const moduleTools = [
         projectKey: {
           type: "string",
           description: "Project Key"
+        },
+        page: {
+          type: "number",
+          description: "Page number. Defaults to 1"
         }
       },
       required: ["projectKey"]
@@ -24,7 +28,7 @@ export async function handleModuleTool(
   if (name !== "list_modules") return null;
 
   const response = await qaTouchApi.get(
-      `/getAllModules/${args.projectKey}`
+      `/getAllModules/${args.projectKey}?page=${args.page || 1}`
   );
 
   return {

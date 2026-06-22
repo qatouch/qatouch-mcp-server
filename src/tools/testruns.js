@@ -10,6 +10,10 @@ export const testRunTools = [
         projectKey: {
           type: "string",
           description: "Project Key"
+        },
+        page: {
+          type: "number",
+          description: "Page number. Defaults to 1"
         }
       },
       required: ["projectKey"]
@@ -24,7 +28,7 @@ export async function handleTestRunTool(
   if (name !== "list_test_runs") return null;
 
   const response = await qaTouchApi.get(
-      `/getAllTestRuns/${args.projectKey}`
+      `/getAllTestRuns/${args.projectKey}?page=${args.page || 1}`
   );
 
   return {

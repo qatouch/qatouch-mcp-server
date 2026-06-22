@@ -18,6 +18,10 @@ export const listTestRunResultTools = [
         testRunKey: {
           type: "string",
           description: "Test Run Key"
+        },
+        page: {
+          type: "number",
+          description: "Page number. Defaults to 1"
         }
       },
       required: [
@@ -44,7 +48,7 @@ export async function handleListTestRunResultTool(
 
   const response =
       await qaTouchApi.get(
-          `/testRunResults/${args.projectKey}/${args.testRunKey}`
+          `/testRunResults/${args.projectKey}/${args.testRunKey}?page=${args.page || 1}`
       );
 
   return jsonResponse(

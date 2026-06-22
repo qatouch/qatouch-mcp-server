@@ -10,6 +10,10 @@ export const requirementTools = [
         projectKey: {
           type: "string",
           description: "Project Key"
+        },
+        page: {
+          type: "number",
+          description: "Page number. Defaults to 1"
         }
       },
       required: ["projectKey"]
@@ -24,7 +28,7 @@ export async function handleRequirementTool(
   if (name !== "list_requirements") return null;
 
   const response = await qaTouchApi.get(
-      `/getAllRequirements/${args.projectKey}`
+      `/getAllRequirements/${args.projectKey}?page=${args.page || 1}`
   );
 
   return {

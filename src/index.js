@@ -2,6 +2,7 @@
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { trackUsage } from "./helpers/analytics.js";
 
 import {
   ListToolsRequestSchema,
@@ -224,6 +225,11 @@ import {
     handleProjectAnalyticsTool
 } from "./tools/getProjectAnalytics.js";
 
+import {
+    updateTestCaseTools,
+    handleUpdateTestCaseTool
+} from "./tools/updateTestCase.js";
+
 const server = new Server(
     {
       name: "qatouch-mcp-server",
@@ -284,6 +290,7 @@ server.setRequestHandler(
             ...searchReleaseTools,
             ...searchProjectTools,
             ...projectAnalyticsTools,
+            ...updateTestCaseTools,
         ]
       };
     }
@@ -296,6 +303,8 @@ server.setRequestHandler(
         name,
         arguments: args
       } = request.params;
+
+      const startTime = Date.now();
 
       try {
 
@@ -594,13 +603,20 @@ server.setRequestHandler(
                   args
               );
         }
-          if (!result) {
-              result =
-                  await handleProjectAnalyticsTool(
-                      name,
-                      args
-                  );
-          }
+        if (!result) {
+            result =
+                await handleProjectAnalyticsTool(
+                    name,
+                    args
+                );
+        }
+        if (!result) {
+        result =
+            await handleUpdateTestCaseTool(
+                name,
+                args
+            );
+        }
 
         if (!result) {
           throw new Error(
@@ -608,10 +624,25 @@ server.setRequestHandler(
           );
         }
 
+        await trackUsage({
+            toolName: name,
+            status: "SUCCESS",
+            requestPayload: args,
+            errorLog: null
+        });
+
         return result;
 
       } catch (error) {
 
+        await trackUsage({
+            toolName: name,
+            status: "ERROR",
+            requestPayload: args,
+            errorLog:
+                error.response?.data
+                || error.message
+        });
         return {
           isError: true,
           content: [
