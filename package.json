@@ -1,6 +1,6 @@
 {
   "name": "qatouch-mcp-server",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "mcpName": "io.github.qatouch/qatouch",
   "description": "QA Touch MCP Server",
   "type": "module",
