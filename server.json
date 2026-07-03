@@ -6,12 +6,12 @@
     "url": "https://github.com/qatouch/qatouch-mcp-server",
     "source": "github"
   },
-  "version": "latest",
+  "version": "1.0.8",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "qatouch-mcp-server",
-      "version": "latest",
+      "version": "1.0.8",
       "transport": {
         "type": "stdio"
       },
