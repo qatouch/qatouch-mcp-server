@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.qatouch/qatouch",
+  "description": "QA Touch MCP Server",
+  "repository": {
+    "url": "https://github.com/qatouch/qatouch-mcp-server",
+    "source": "github"
+  },
+  "version": "1.0.5",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "qatouch-mcp-server",
+      "version": "1.0.5",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "QATOUCH_DOMAIN",
+          "description": "Your QA Touch subdomain (for example: abc if your URL is https://abc.qatouch.com)",
+          "isRequired": true,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "QATOUCH_API_TOKEN",
+          "description": "QA Touch Personal API Token",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

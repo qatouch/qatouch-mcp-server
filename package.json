@@ -1,6 +1,7 @@
 {
   "name": "qatouch-mcp-server",
   "version": "1.0.5",
+  "mcpName": "io.github.qatouch/qatouch",
   "description": "QA Touch MCP Server",
   "type": "module",
   "main": "src/index.js",
