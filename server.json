@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.qatouch/qatouch",
-  "description": "Official QA Touch MCP Server for software testing, test management, test case management, test execution, and defect tracking.",
+  "description": "MCP Server for software testing, test case management, test execution, and defect tracking.",
   "repository": {
     "url": "https://github.com/qatouch/qatouch-mcp-server",
     "source": "github"
   },
-  "version": "1.0.8",
+  "version": "1.1.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "qatouch-mcp-server",
-      "version": "1.0.8",
+      "version": "1.1.0",
       "transport": {
         "type": "stdio"
       },
