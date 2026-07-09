@@ -1,8 +1,8 @@
 {
   "name": "qatouch-mcp-server",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "mcpName": "io.github.qatouch/qatouch",
-  "description": "QA Touch MCP Server",
+  "description": "MCP Server for software testing, test case management, test execution, and defect tracking.",
   "type": "module",
   "main": "src/index.js",
   "bin": {
