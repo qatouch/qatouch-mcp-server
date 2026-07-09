@@ -42,17 +42,15 @@ export async function handleCreateModuleTool(
       ]
   );
 
-  const response =
-      await qaTouchApi.post(
-          "/module",
-          null,
-          {
-            params: {
-              projectKey: args.projectKey,
-              module: args.moduleName
-            }
-          }
-      );
+  const payload = {
+      projectKey: args.projectKey,
+      moduleName: args.moduleName
+  };
+
+  const response = await qaTouchApi.post(
+      "/module",
+      payload
+  );
 
   return jsonResponse(
       response.data

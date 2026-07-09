@@ -57,14 +57,11 @@ export async function handleCreateRequirementTool(
   const response =
       await qaTouchApi.post(
           "/requirement",
-          null,
           {
-            params: {
               projectKey: args.projectKey,
               documentKey: args.documentKey,
               title: args.title,
               desc: args.desc
-            }
           }
       );
 

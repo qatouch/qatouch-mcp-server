@@ -45,12 +45,9 @@ export async function handleCreateReleaseTool(
   const response =
       await qaTouchApi.post(
           "/milestone",
-          null,
           {
-            params: {
               projectKey: args.projectKey,
               milestone: args.milestone
-            }
           }
       );
 

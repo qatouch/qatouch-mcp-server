@@ -35,11 +35,8 @@ export async function handleCreateProjectTool(
   const response =
       await qaTouchApi.post(
           "/project",
-          null,
           {
-            params: {
-              name: args.name
-            }
+            name: args.name
           }
       );
 
