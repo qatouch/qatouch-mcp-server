@@ -230,10 +230,23 @@ import {
     handleUpdateTestCaseTool
 } from "./tools/updateTestCase.js";
 
+import {
+  generateCorrelationId,
+  setCorrelationId,
+  getCorrelationId,
+  info,
+  error as logError,
+} from "./helpers/logger.js";
+
+import {
+  classifyAxiosError,
+  getActionableError,
+} from "./helpers/errors.js";
+
 const server = new Server(
     {
       name: "qatouch-mcp-server",
-      version: "1.1.0"
+      version: "1.0.5"
     },
     {
       capabilities: {
@@ -296,9 +309,332 @@ server.setRequestHandler(
     }
 );
 
+async function dispatchTool(name, args) {
+  let result =
+      await handleProjectTool(
+          name,
+          args
+      );
+
+  if (!result) {
+    result =
+        await handleCountAllProjectTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateProjectTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleTestCaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCountTestCaseTool(
+            name,
+            args
+        );
+  }
+
+  if (!result) {
+    result =
+        await handleDefectTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListDefectStatusTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListDefectSeverityTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListDefectIssueTypeTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListDefectEnvironmentTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCountDefectTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateDefectTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleModuleTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCountModuleTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateModuleTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateTestCaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateBulkTestCaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateExploratoryTestCaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateTextTestCaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleTestRunTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCountTestRunTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListTestRunResultTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListTestRunResultHistoryTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListTestRunStatusTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleUpdateTestRunResultStatusTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListTestRunAvailableUserTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleUpdateTestRunResultsByCodeTool(
+            name,
+            args
+        );
+  }
+
+  if (!result) {
+    result =
+        await handleReleaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCountReleaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateReleaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleRequirementTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCountRequirementTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListRequirementDocumentTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateRequirementDocumentTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleCreateRequirementTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleListWorkspaceTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleSearchTestCaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleSearchModuleTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleSearchRequirementTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleSearchDefectTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleSearchReleaseTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+    result =
+        await handleSearchProjectTool(
+            name,
+            args
+        );
+  }
+  if (!result) {
+      result =
+          await handleProjectAnalyticsTool(
+              name,
+              args
+          );
+  }
+  if (!result) {
+  result =
+      await handleUpdateTestCaseTool(
+          name,
+          args
+      );
+  }
+
+  if (!result) {
+    throw new Error(
+        `Unknown tool: ${name}`
+    );
+  }
+
+  return result;
+}
+
 server.setRequestHandler(
     CallToolRequestSchema,
     async (request) => {
+      const correlationId = generateCorrelationId();
+      setCorrelationId(correlationId);
+
       const {
         name,
         arguments: args
@@ -306,323 +642,20 @@ server.setRequestHandler(
 
       const startTime = Date.now();
 
+      info("MCP Tool Invocation Started", {
+        toolName: name,
+        arguments: args || {},
+      });
+
       try {
+        const result =
+            await dispatchTool(name, args);
 
-        let result =
-            await handleProjectTool(
-                name,
-                args
-            );
-
-        if (!result) {
-          result =
-              await handleCountAllProjectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateProjectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountTestCaseTool(
-                  name,
-                  args
-              );
-        }
-
-        if (!result) {
-          result =
-              await handleDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectStatusTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectSeverityTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectIssueTypeTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectEnvironmentTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateBulkTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateExploratoryTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateTextTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleTestRunTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountTestRunTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunResultTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunResultHistoryTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunStatusTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleUpdateTestRunResultStatusTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunAvailableUserTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleUpdateTestRunResultsByCodeTool(
-                  name,
-                  args
-              );
-        }
-
-        if (!result) {
-          result =
-              await handleReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListRequirementDocumentTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateRequirementDocumentTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListWorkspaceTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchProjectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-            result =
-                await handleProjectAnalyticsTool(
-                    name,
-                    args
-                );
-        }
-        if (!result) {
-        result =
-            await handleUpdateTestCaseTool(
-                name,
-                args
-            );
-        }
-
-        if (!result) {
-          throw new Error(
-              `Unknown tool: ${name}`
-          );
-        }
+        const duration = Date.now() - startTime;
+        info("MCP Tool Invocation Succeeded", {
+          toolName: name,
+          durationMs: duration,
+        });
 
         await trackUsage({
             toolName: name,
@@ -634,31 +667,55 @@ server.setRequestHandler(
         return result;
 
       } catch (error) {
+        const duration = Date.now() - startTime;
+
+        let actionableError = error;
+
+        if (error && !error.category) {
+          actionableError = getActionableError(error);
+        }
+
+        const category = actionableError.category || "UNKNOWN";
+        const message = actionableError.message || actionableError.originalMessage || error.message;
+        const status = actionableError.status || null;
+
+        const logMeta = {
+          toolName: name,
+          durationMs: duration,
+          category,
+          message,
+          status,
+          stack: error.stack,
+        };
+
+        if (category === "AUTH") {
+          logError("MCP Tool Authentication Failure", logMeta);
+        } else if (category === "TIMEOUT") {
+          logError("MCP Tool Timeout Failure", logMeta);
+        } else if (category === "NETWORK") {
+          logError("MCP Tool Network Failure", logMeta);
+        } else {
+          logError("MCP Tool Invocation Failed", logMeta);
+        }
 
         await trackUsage({
             toolName: name,
             status: "ERROR",
             requestPayload: args,
-            errorLog:
-                error.response?.data
-                || error.message
+            errorLog: message
         });
+
         return {
           isError: true,
           content: [
             {
               type: "text",
-              text:
-                  error.response && error.response.data
-                      ? JSON.stringify(
-                      error.response.data,
-                      null,
-                      2
-                      )
-                      : error.message
+              text: actionableError.actionable || message
             }
           ]
         };
+      } finally {
+        setCorrelationId(null);
       }
     }
 );
@@ -671,9 +728,9 @@ async function run() {
       transport
   );
 
-  console.error(
-      "QA Touch MCP Server running"
-  );
+  info("QA Touch MCP Server running", {
+    version: "1.0.5",
+  });
 }
 
 run();

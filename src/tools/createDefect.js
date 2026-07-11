@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   jsonResponse,
   validateRequired
@@ -49,7 +49,7 @@ export async function handleCreateDefectTool(
   );
 
   const response =
-      await qaTouchApi.post(
+      await apiPost(
           "/defects",
           null,
           {

@@ -14,14 +14,38 @@ export function validateRequired(
   }
 }
 
+function safeStringify(obj, space) {
+  if (obj === null || obj === undefined) return String(obj);
+  if (typeof obj !== "object") return String(obj);
+  try {
+    return JSON.stringify(obj, null, space);
+  } catch {
+    try {
+      const seen = new WeakSet();
+      return JSON.stringify(
+        obj,
+        (key, value) => {
+          if (typeof value === "object" && value !== null) {
+            if (seen.has(value)) return "[circular]";
+            seen.add(value);
+          }
+          return value;
+        },
+        space
+      );
+    } catch {
+      return "[unserializable]";
+    }
+  }
+}
+
 export function jsonResponse(data) {
   return {
     content: [
       {
         type: "text",
-        text: JSON.stringify(
+        text: safeStringify(
             data,
-            null,
             2
         )
       }

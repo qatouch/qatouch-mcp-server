@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   jsonResponse,
   validateRequired
@@ -93,7 +93,7 @@ export async function handleUpdateTestRunResultsByCodeTool(
   );
 
   const response =
-      await qaTouchApi.post(
+      await apiPost(
           "/testRunResults/testrun/code",
           null,
           {

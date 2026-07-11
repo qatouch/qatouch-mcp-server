@@ -1,31 +1,32 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
+import { classifyAxiosError } from "../helpers/errors.js";
 
 export const createBulkTestCaseTools = [
   {
     name: "create_bulk_test_cases",
     description: `
-Create multiple QA Touch test cases from a single scenario.
+ Create multiple QA Touch test cases from a single scenario.
 
-IMPORTANT:
-- Generate between 5 and 10 test cases.
-- Cover positive, negative, validation, boundary and usability scenarios.
-- Every test case must contain:
-  - caseTitle
-  - description
-  - precondition
-  - steps
-  - expected results
+ IMPORTANT:
+ - Generate between 5 and 10 test cases.
+ - Cover positive, negative, validation, boundary and usability scenarios.
+ - Every test case must contain:
+   - caseTitle
+   - description
+   - precondition
+   - steps
+   - expected results
 
-IMPORTANT:
-- Generate a complete professional test case.
-- Every test case MUST contain four or more steps.
-- Every step MUST contain:
-  - step
-  - expectedResult
-- expectedResult must never be empty.
-- Do NOT generate steps_template.
-- Generate steps array only.
-`,
+ IMPORTANT:
+ - Generate a complete professional test case.
+ - Every test case MUST contain four or more steps.
+ - Every step MUST contain:
+   - step
+   - expectedResult
+ - expectedResult must never be empty.
+ - Do NOT generate steps_template.
+ - Generate steps array only.
+ `,
     inputSchema: {
       type: "object",
       properties: {
@@ -199,7 +200,7 @@ export async function handleCreateBulkTestCaseTool(
     try {
 
       const response =
-          await qaTouchApi.post(
+          await apiPost(
               "/testCase/steps",
               null,
               {
@@ -216,33 +217,11 @@ export async function handleCreateBulkTestCaseTool(
       });
 
     } catch (error) {
-
-      let errorMessage =
-          error.message;
-
-      if (error.response?.data) {
-
-        if (
-            typeof error.response.data ===
-            "string"
-        ) {
-
-          errorMessage =
-              error.response.data;
-
-        } else {
-
-          errorMessage =
-              JSON.stringify(
-                  error.response.data
-              );
-        }
-      }
-
+      const classified = classifyAxiosError(error);
       results.push({
         success: false,
         title: testCase.caseTitle,
-        error: errorMessage
+        error: classified.actionable
       });
     }
   }

@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 
 export const testRunTools = [
   {
@@ -27,7 +27,7 @@ export async function handleTestRunTool(
 ) {
   if (name !== "list_test_runs") return null;
 
-  const response = await qaTouchApi.get(
+  const response = await apiGet(
       `/getAllTestRuns/${args.projectKey}?page=${args.page || 1}`
   );
 

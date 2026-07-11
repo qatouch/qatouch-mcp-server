@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   jsonResponse,
   validateRequired
@@ -95,7 +95,7 @@ export async function handleUpdateTestCaseTool(
   );
 
   const response =
-      await qaTouchApi.post(
+      await apiPost(
           "/testcase/update/common",
           null,
           {

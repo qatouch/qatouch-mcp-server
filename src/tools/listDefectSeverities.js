@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import { jsonResponse } from "./helpers.js";
 
 export const listDefectSeverityTools = [
@@ -16,7 +16,7 @@ export async function handleListDefectSeverityTool(name) {
   if (name !== "list_defect_severities") return null;
 
   const response =
-      await qaTouchApi.get(
+      await apiGet(
           "/defects/severity"
       );
 

@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   jsonResponse,
   validateRequired
@@ -43,7 +43,7 @@ export async function handleCreateReleaseTool(
   );
 
   const response =
-      await qaTouchApi.post(
+      await apiPost(
           "/milestone",
           {
               projectKey: args.projectKey,
