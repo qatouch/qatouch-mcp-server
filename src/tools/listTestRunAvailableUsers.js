@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import {
   jsonResponse,
   validateRequired
@@ -33,7 +33,7 @@ export async function handleListTestRunAvailableUserTool(
   );
 
   const response =
-      await apiGet(
+      await qaTouchApi.get(
           `/testRun/availableUsers/${args.projectKey}`
       );
 

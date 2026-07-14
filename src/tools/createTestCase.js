@@ -1,56 +1,52 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
-import {
-  jsonResponse,
-  validateRequired
-} from "./helpers.js";
+import qaTouchApi from "../api/qatouch.js";
 
 export const createTestCaseTools = [
   {
     name: "create_test_case",
     description: `
- Create a QA Touch test case.
+Create a QA Touch test case.
 
- Before calling this tool, generate a complete professional test case including:
- - caseTitle
- - description
- - precondition
- - steps
- - expected results
+Before calling this tool, generate a complete professional test case including:
+- caseTitle
+- description
+- precondition
+- steps
+- expected results
 
- IMPORTANT:
+IMPORTANT:
 
- The tool MUST receive:
+The tool MUST receive:
 
- {
-   "steps": [
-     {
-       "step": "Open browser",
-       "expectedResult": "Browser opens"
-     }
-   ]
- }
+{
+  "steps": [
+    {
+      "step": "Open browser",
+      "expectedResult": "Browser opens"
+    }
+  ]
+}
 
- NEVER send:
- - steps_template
- - step_description
- - expected_result
+NEVER send:
+- steps_template
+- step_description
+- expected_result
 
- The MCP server automatically converts steps into QA Touch format.
+The MCP server automatically converts steps into QA Touch format.
 
- Only provide:
- - step
- - expectedResult
+Only provide:
+- step
+- expectedResult
 
- Rules:
- - Generate a complete professional test case.
- - Every test case MUST contain 4 or more steps.
- - Every step MUST contain:
-   - step
-   - expectedResult
- - expectedResult must never be empty.
- - Do NOT generate steps_template.
- - Generate steps array only.
- `,
+Rules:
+- Generate a complete professional test case.
+- Every test case MUST contain 4 or more steps.
+- Every step MUST contain:
+  - step
+  - expectedResult
+- expectedResult must never be empty.
+- Do NOT generate steps_template.
+- Generate steps array only.
+`,
     inputSchema: {
       type: "object",
       properties: {
@@ -123,6 +119,11 @@ export async function handleCreateTestCaseTool(
     return null;
   }
 
+  console.log(
+      "RAW TOOL ARGS:",
+      JSON.stringify(args, null, 2)
+  );
+
   if (args.steps_template) {
     throw new Error(
         "steps_template is not allowed. Provide steps[] only."
@@ -171,16 +172,69 @@ export async function handleCreateTestCaseTool(
     )
   };
 
-  const response =
-      await apiPost(
-          "/testCase/steps",
-          null,
-          {
-            params: requestParams
-          }
-      );
-
-  return jsonResponse(
-      response.data
+  console.log(
+      "QA TOUCH REQUEST:"
   );
+
+  console.log(
+      JSON.stringify(
+          requestParams,
+          null,
+          2
+      )
+  );
+
+  try {
+    const response =
+        await qaTouchApi.post(
+            "/testCase/steps",
+            null,
+            {
+              params: requestParams
+            }
+        );
+
+    console.log(
+        "QA TOUCH RESPONSE:"
+    );
+
+    console.log(
+        JSON.stringify(
+            response.data,
+            null,
+            2
+        )
+    );
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(
+              response.data,
+              null,
+              2
+          )
+        }
+      ]
+    };
+  } catch (error) {
+    console.error(
+        "QA TOUCH API ERROR:"
+    );
+
+    if (error.response) {
+      console.error(
+          JSON.stringify(
+              error.response.data,
+              null,
+              2
+          )
+      );
+    } else {
+      console.error(error);
+    }
+
+    throw error;
+  }
 }

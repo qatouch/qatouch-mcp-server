@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 
 export const projectAnalyticsTools = [
   {
@@ -40,7 +40,7 @@ export async function handleProjectAnalyticsTool(
     return null;
   }
 
-  const response = await apiGet(
+  const response = await qaTouchApi.get(
       `/getProjectAnalytics/${args.projectKey}`
   );
 

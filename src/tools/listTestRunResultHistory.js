@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import {
   jsonResponse,
   validateRequired
@@ -49,7 +49,7 @@ export async function handleListTestRunResultHistoryTool(
   );
 
   const response =
-      await apiGet(
+      await qaTouchApi.get(
           `/testRunResults/history/${args.projectKey}/${args.testRunKey}/${args.resultKey}`
       );
 

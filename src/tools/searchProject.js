@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import {
   extractRecords,
   filterRecords,
@@ -52,19 +52,19 @@ export async function handleSearchProjectTool(
     releaseResponse
   ] =
       await Promise.all([
-        apiGet(
+        qaTouchApi.get(
             `/getAllTestCases/${args.projectKey}`
         ),
-        apiGet(
+        qaTouchApi.get(
             `/getAllModules/${args.projectKey}`
         ),
-        apiGet(
+        qaTouchApi.get(
             `/getAllRequirements/${args.projectKey}`
         ),
-        apiGet(
+        qaTouchApi.get(
             `/getAllDefects/${args.projectKey}`
         ),
-        apiGet(
+        qaTouchApi.get(
             `/getAllMilestones/${args.projectKey}`
         )
       ]);

@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import {
   jsonResponse,
   validateRequired
@@ -55,13 +55,16 @@ export async function handleCreateRequirementTool(
   );
 
   const response =
-      await apiPost(
+      await qaTouchApi.post(
           "/requirement",
+          null,
           {
+            params: {
               projectKey: args.projectKey,
               documentKey: args.documentKey,
               title: args.title,
               desc: args.desc
+            }
           }
       );
 

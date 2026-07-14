@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import {
   extractRecords,
   filterRecords,
@@ -46,7 +46,7 @@ export async function handleSearchDefectTool(
   );
 
   const response =
-      await apiGet(
+      await qaTouchApi.get(
           `/getAllDefects/${args.projectKey}`
       );
 

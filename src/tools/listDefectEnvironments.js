@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import { jsonResponse } from "./helpers.js";
 
 export const listDefectEnvironmentTools = [
@@ -16,7 +16,7 @@ export async function handleListDefectEnvironmentTool(name) {
   if (name !== "list_defect_environments") return null;
 
   const response =
-      await apiGet(
+      await qaTouchApi.get(
           "/defects/environment"
       );
 
