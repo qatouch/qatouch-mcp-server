@@ -231,17 +231,9 @@ import {
 } from "./tools/updateTestCase.js";
 
 import {
-  generateCorrelationId,
-  setCorrelationId,
-  getCorrelationId,
-  info,
-  error as logError,
-} from "./helpers/logger.js";
-
-import {
-  classifyAxiosError,
-  getActionableError,
-} from "./helpers/errors.js";
+    importTestCaseTools,
+    handleImportTestCaseTool
+} from "./tools/importTestCases.js";
 
 const server = new Server(
     {
@@ -302,9 +294,10 @@ server.setRequestHandler(
             ...searchDefectTools,
             ...searchReleaseTools,
             ...searchProjectTools,
-            ...projectAnalyticsTools,
-            ...updateTestCaseTools,
-        ]
+             ...projectAnalyticsTools,
+             ...updateTestCaseTools,
+             ...importTestCaseTools,
+         ]
       };
     }
 );
@@ -618,6 +611,14 @@ async function dispatchTool(name, args) {
           name,
           args
       );
+  }
+
+  if (!result) {
+      result =
+          await handleImportTestCaseTool(
+              name,
+              args
+          );
   }
 
   if (!result) {

@@ -52,19 +52,19 @@ export async function handleSearchProjectTool(
     releaseResponse
   ] =
       await Promise.all([
-        qaTouchApi.get(
+        apiGet(
             `/getAllTestCases/${args.projectKey}`
         ),
-        qaTouchApi.get(
+        apiGet(
             `/getAllModules/${args.projectKey}`
         ),
-        qaTouchApi.get(
+        apiGet(
             `/getAllRequirements/${args.projectKey}`
         ),
-        qaTouchApi.get(
+        apiGet(
             `/getAllDefects/${args.projectKey}`
         ),
-        qaTouchApi.get(
+        apiGet(
             `/getAllMilestones/${args.projectKey}`
         )
       ]);

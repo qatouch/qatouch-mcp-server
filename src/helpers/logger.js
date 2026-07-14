@@ -92,9 +92,9 @@ function log(level, message, meta = {}) {
   if (level === "error") {
     console.error(output);
   } else if (level === "warn") {
-    console.warn(output);
+    console.error(output);
   } else {
-    console.log(output);
+    console.error(output);
   }
 }
 
