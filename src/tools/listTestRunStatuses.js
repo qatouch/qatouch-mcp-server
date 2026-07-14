@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import { jsonResponse } from "./helpers.js";
 
 export const listTestRunStatusTools = [
@@ -16,7 +16,7 @@ export async function handleListTestRunStatusTool(name) {
   if (name !== "list_test_run_statuses") return null;
 
   const response =
-      await apiGet(
+      await qaTouchApi.get(
           "/testRuns/getAvailableStatuses"
       );
 

@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 
 export const releaseTools = [
   {
@@ -27,7 +27,7 @@ export async function handleReleaseTool(
 ) {
   if (name !== "list_releases") return null;
 
-  const response = await apiGet(
+  const response = await qaTouchApi.get(
       `/getAllMilestones/${args.projectKey}?page=${args.page || 1}`
   );
 

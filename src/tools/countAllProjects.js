@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 import { jsonResponse } from "./helpers.js";
 
 export const countAllProjectTools = [
@@ -16,7 +16,7 @@ export async function handleCountAllProjectTool(name) {
   if (name !== "count_all_projects") return null;
 
   const response =
-      await apiGet(
+      await qaTouchApi.get(
           "/count/allProjects"
       );
 

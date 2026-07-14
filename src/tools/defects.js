@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "../helpers/apiCall.js";
+import qaTouchApi from "../api/qatouch.js";
 
 export const defectTools = [
   {
@@ -23,7 +23,7 @@ export async function handleDefectTool(
 ) {
   if (name !== "list_defects") return null;
 
-  const response = await apiGet(
+  const response = await qaTouchApi.get(
       `/getAllDefects/${args.projectKey}`
   );
 
