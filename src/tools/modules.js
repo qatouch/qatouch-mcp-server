@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 
 export const moduleTools = [
   {
@@ -27,7 +27,7 @@ export async function handleModuleTool(
 ) {
   if (name !== "list_modules") return null;
 
-  const response = await qaTouchApi.get(
+  const response = await apiGet(
       `/getAllModules/${args.projectKey}?page=${args.page || 1}`
   );
 

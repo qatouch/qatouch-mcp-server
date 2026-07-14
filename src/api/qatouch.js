@@ -8,7 +8,7 @@ import {
   getCorrelationId,
   error as logError,
   debug as logDebug,
-} from "./logger.js";
+} from "../helpers/logger.js";
 
 const MAX_RETRIES = 3;
 const RETRY_DELAYS = [1000, 2000, 4000];

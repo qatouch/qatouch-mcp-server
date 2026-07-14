@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 
 export const requirementTools = [
   {
@@ -27,7 +27,7 @@ export async function handleRequirementTool(
 ) {
   if (name !== "list_requirements") return null;
 
-  const response = await qaTouchApi.get(
+  const response = await apiGet(
       `/getAllRequirements/${args.projectKey}?page=${args.page || 1}`
   );
 

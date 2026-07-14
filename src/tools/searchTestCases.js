@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   extractRecords,
   filterRecords,
@@ -46,7 +46,7 @@ export async function handleSearchTestCaseTool(
   );
 
   const response =
-      await qaTouchApi.get(
+      await apiGet(
           `/getAllTestCases/${args.projectKey}`
       );
 

@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   jsonResponse,
   validateRequired
@@ -77,7 +77,7 @@ export async function handleCreateTextTestCaseTool(
   );
 
   const response =
-      await qaTouchApi.post(
+      await apiPost(
           "/testCase/text",
           null,
           {

@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import { jsonResponse } from "./helpers.js";
 
 export const listWorkspaceTools = [
@@ -16,7 +16,7 @@ export async function handleListWorkspaceTool(name) {
   if (name !== "list_workspace") return null;
 
   const response =
-      await qaTouchApi.get(
+      await apiGet(
           "/getAllWorkspace"
       );
 

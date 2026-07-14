@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   jsonResponse,
   validateRequired
@@ -33,7 +33,7 @@ export async function handleCountTestCaseTool(
   );
 
   const response =
-      await qaTouchApi.get(
+      await apiGet(
           `/count/allTestCases/${args.projectKey}`
       );
 

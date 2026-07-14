@@ -1,4 +1,4 @@
-import qaTouchApi from "../api/qatouch.js";
+import { apiGet, apiPost } from "../helpers/apiCall.js";
 import {
   jsonResponse,
   validateRequired
@@ -47,7 +47,7 @@ export async function handleCreateModuleTool(
       moduleName: args.moduleName
   };
 
-  const response = await qaTouchApi.post(
+  const response = await apiPost(
       "/module",
       payload
   );
