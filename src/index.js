@@ -191,6 +191,11 @@ import {
     from "./tools/createBulkTestCases.js";
 
 import {
+    importTestCaseTools,
+    handleImportTestCaseTool
+} from "./tools/importTestCases.js";
+
+import {
     searchTestCaseTools,
     handleSearchTestCaseTool
 } from "./tools/searchTestCases.js";
@@ -283,6 +288,7 @@ server.setRequestHandler(
             ...createBulkTestCaseTools,
             ...createExploratoryTestCaseTools,
             ...createTextTestCaseTools,
+            ...importTestCaseTools,
             ...searchTestCaseTools,
             ...searchModuleTools,
             ...searchRequirementTools,
@@ -437,6 +443,13 @@ server.setRequestHandler(
         if (!result) {
           result =
               await handleCreateTextTestCaseTool(
+                  name,
+                  args
+              );
+        }
+        if (!result) {
+          result =
+              await handleImportTestCaseTool(
                   name,
                   args
               );

@@ -18,14 +18,14 @@ export const importTestCaseTools = [
           type: "string",
           description: "QA Touch Project Key"
         },
-        csvFile: {
+        filePath: {
           type: "string",
           description: "Absolute path of CSV file on local machine"
         }
       },
       required: [
         "projectKey",
-        "csvFile"
+        "filePath"
       ]
     }
   }
@@ -41,57 +41,38 @@ export async function handleImportTestCaseTool(
       args,
       [
         "projectKey",
-        "csvFile"
+        "filePath"
       ]
   );
 
-  if (!fs.existsSync(args.csvFile)) {
-    return jsonResponse({
-      success: false,
-      message: `File not found: ${args.csvFile}`
-    });
+  if (!fs.existsSync(args.filePath)) {
+    throw new Error(
+        `File not found: ${args.filePath}`
+    );
   }
 
-  const ext = path.extname(args.csvFile).toLowerCase();
+  const ext = path.extname(args.filePath).toLowerCase();
   if (ext !== ".csv") {
-    return jsonResponse({
-      success: false,
-      message: `Invalid file type: ${ext}. Expected .csv file.`
-    });
+    throw new Error(
+        `Invalid file type: ${ext}. Expected .csv file.`
+    );
   }
 
   const form = new FormData();
   form.append("projectKey", args.projectKey);
-  form.append("file", fs.createReadStream(args.csvFile), {
-    filename: path.basename(args.csvFile)
+  form.append("file", fs.createReadStream(args.filePath), {
+    filename: path.basename(args.filePath)
   });
 
-  try {
-    const response = await qaTouchApi.post(
-        "/testCase/import",
-        form,
-        {
-          headers: form.getHeaders()
-        }
-    );
+  const response = await qaTouchApi.post(
+      "/testCase/import",
+      form,
+      {
+        headers: form.getHeaders()
+      }
+  );
 
-    return jsonResponse(
-        response.data
-    );
-  } catch (error) {
-    if (error.response) {
-      const message = typeof error.response.data === "string"
-        ? error.response.data
-        : JSON.stringify(error.response.data);
-      return jsonResponse({
-        success: false,
-        message
-      });
-    }
-
-    return jsonResponse({
-      success: false,
-      message: error.message
-    });
-  }
+  return jsonResponse(
+      response.data
+  );
 }

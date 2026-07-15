@@ -49,7 +49,7 @@ export async function handleCreateModuleTool(
           {
             params: {
               projectKey: args.projectKey,
-              module: args.moduleName
+              moduleName: args.moduleName
             }
           }
       );
