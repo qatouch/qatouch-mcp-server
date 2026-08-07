@@ -231,9 +231,19 @@ import {
 } from "./tools/getProjectAnalytics.js";
 
 import {
-    updateTestCaseTools,
-    handleUpdateTestCaseTool
-} from "./tools/updateTestCase.js";
+     createTestRunWithModulesTools,
+     handleCreateTestRunWithModulesTool
+} from "./tools/createTestRunWithModules.js";
+
+import {
+      updateTestCaseTools,
+      handleUpdateTestCaseTool
+    } from "./tools/updateTestCase.js";
+
+import {
+     playwrightScriptTools,
+     handlePlaywrightScriptTool
+   } from "./tools/playwrightScripts.js";
 
 const server = new Server(
     {
@@ -265,6 +275,7 @@ server.setRequestHandler(
             ...updateTestRunResultStatusTools,
             ...listTestRunAvailableUserTools,
             ...updateTestRunResultsByCodeTools,
+            ...createTestRunWithModulesTools,
             ...moduleTools,
             ...countModuleTools,
             ...createModuleTools,
@@ -296,8 +307,9 @@ server.setRequestHandler(
             ...searchReleaseTools,
             ...searchProjectTools,
             ...projectAnalyticsTools,
-            ...updateTestCaseTools,
-        ]
+             ...updateTestCaseTools,
+             ...playwrightScriptTools,
+         ]
       };
     }
 );
@@ -510,6 +522,13 @@ server.setRequestHandler(
                   args
               );
         }
+        if (!result) {
+          result =
+              await handleCreateTestRunWithModulesTool(
+                  name,
+                  args
+              );
+        }
 
         if (!result) {
           result =
@@ -623,18 +642,26 @@ server.setRequestHandler(
                     args
                 );
         }
-        if (!result) {
-        result =
-            await handleUpdateTestCaseTool(
-                name,
-                args
-            );
-        }
+         if (!result) {
+           result =
+               await handleUpdateTestCaseTool(
+                   name,
+                   args
+               );
+         }
 
-        if (!result) {
-          throw new Error(
-              `Unknown tool: ${name}`
-          );
+         if (!result) {
+           result =
+               await handlePlaywrightScriptTool(
+                   name,
+                   args
+               );
+         }
+
+         if (!result) {
+           throw new Error(
+               `Unknown tool: ${name}`
+           );
         }
 
         await trackUsage({
