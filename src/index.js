@@ -3,6 +3,7 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { trackUsage } from "./helpers/analytics.js";
+import { getActionableError } from "./helpers/errors.js";
 
 import {
   ListToolsRequestSchema,
@@ -80,8 +81,8 @@ import {
 } from "./tools/createDefect.js";
 
 import {
-    testRunTools,
-    handleTestRunTool
+  testRunTools,
+  handleTestRunTool
 } from "./tools/testruns.js";
 
 import {
@@ -120,8 +121,8 @@ import {
 } from "./tools/updateTestRunResultsByCode.js";
 
 import {
-    moduleTools,
-    handleModuleTool
+  moduleTools,
+  handleModuleTool
 } from "./tools/modules.js";
 
 import {
@@ -135,8 +136,8 @@ import {
 } from "./tools/createModule.js";
 
 import {
-    releaseTools,
-    handleReleaseTool
+  releaseTools,
+  handleReleaseTool
 } from "./tools/releases.js";
 
 import {
@@ -150,8 +151,8 @@ import {
 } from "./tools/createRelease.js";
 
 import {
-    requirementTools,
-    handleRequirementTool
+  requirementTools,
+  handleRequirementTool
 } from "./tools/requirements.js";
 
 import {
@@ -187,8 +188,7 @@ import {
 import {
     createBulkTestCaseTools,
     handleCreateBulkTestCaseTool
-}
-    from "./tools/createBulkTestCases.js";
+} from "./tools/createBulkTestCases.js";
 
 import {
     importTestCaseTools,
@@ -236,14 +236,64 @@ import {
 } from "./tools/createTestRunWithModules.js";
 
 import {
-      updateTestCaseTools,
-      handleUpdateTestCaseTool
-    } from "./tools/updateTestCase.js";
+       updateTestCaseTools,
+       handleUpdateTestCaseTool
+     } from "./tools/updateTestCase.js";
 
 import {
      playwrightScriptTools,
      handlePlaywrightScriptTool
    } from "./tools/playwrightScripts.js";
+
+const toolHandlers = [
+  handleProjectTool,
+  handleCountAllProjectTool,
+  handleCreateProjectTool,
+  handleTestCaseTool,
+  handleCountTestCaseTool,
+  handleDefectTool,
+  handleListDefectStatusTool,
+  handleListDefectSeverityTool,
+  handleListDefectIssueTypeTool,
+  handleListDefectEnvironmentTool,
+  handleCountDefectTool,
+  handleCreateDefectTool,
+  handleModuleTool,
+  handleCountModuleTool,
+  handleCreateModuleTool,
+  handleCreateTestCaseTool,
+  handleCreateBulkTestCaseTool,
+  handleCreateExploratoryTestCaseTool,
+  handleCreateTextTestCaseTool,
+  handleImportTestCaseTool,
+  handleTestRunTool,
+  handleCountTestRunTool,
+  handleListTestRunResultTool,
+  handleListTestRunResultHistoryTool,
+  handleListTestRunStatusTool,
+  handleUpdateTestRunResultStatusTool,
+  handleListTestRunAvailableUserTool,
+  handleUpdateTestRunResultsByCodeTool,
+  handleCreateTestRunWithModulesTool,
+  handleReleaseTool,
+  handleCountReleaseTool,
+  handleCreateReleaseTool,
+  handleRequirementTool,
+  handleCountRequirementTool,
+  handleListRequirementDocumentTool,
+  handleCreateRequirementDocumentTool,
+  handleCreateRequirementTool,
+  handleListWorkspaceTool,
+  handleSearchTestCaseTool,
+  handleSearchModuleTool,
+  handleSearchRequirementTool,
+  handleSearchDefectTool,
+  handleSearchReleaseTool,
+  handleSearchProjectTool,
+  handleProjectAnalyticsTool,
+  handleUpdateTestCaseTool,
+  handlePlaywrightScriptTool
+];
 
 const server = new Server(
     {
@@ -323,379 +373,81 @@ server.setRequestHandler(
       } = request.params;
 
       const startTime = Date.now();
+      const correlationId = `req_${startTime}_${Math.random().toString(36).slice(2, 9)}`;
 
       try {
+        let result = null;
 
-        let result =
-            await handleProjectTool(
-                name,
-                args
-            );
-
-        if (!result) {
-          result =
-              await handleCountAllProjectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateProjectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountTestCaseTool(
-                  name,
-                  args
-              );
+        for (const handler of toolHandlers) {
+          result = await handler(name, args);
+          if (result) {
+            break;
+          }
         }
 
         if (!result) {
-          result =
-              await handleDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectStatusTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectSeverityTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectIssueTypeTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListDefectEnvironmentTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateBulkTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateExploratoryTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateTextTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleImportTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleTestRunTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountTestRunTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunResultTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunResultHistoryTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunStatusTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleUpdateTestRunResultStatusTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListTestRunAvailableUserTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleUpdateTestRunResultsByCodeTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateTestRunWithModulesTool(
-                  name,
-                  args
-              );
+          throw new Error(
+              `Unknown tool: ${name}`
+          );
         }
 
-        if (!result) {
-          result =
-              await handleReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCountRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListRequirementDocumentTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateRequirementDocumentTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleCreateRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleListWorkspaceTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchTestCaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchModuleTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchRequirementTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchDefectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchReleaseTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-          result =
-              await handleSearchProjectTool(
-                  name,
-                  args
-              );
-        }
-        if (!result) {
-            result =
-                await handleProjectAnalyticsTool(
-                    name,
-                    args
-                );
-        }
-         if (!result) {
-           result =
-               await handleUpdateTestCaseTool(
-                   name,
-                   args
-               );
-         }
+        const durationMs = Date.now() - startTime;
 
-         if (!result) {
-           result =
-               await handlePlaywrightScriptTool(
-                   name,
-                   args
-               );
-         }
-
-         if (!result) {
-           throw new Error(
-               `Unknown tool: ${name}`
-           );
+        try {
+          await trackUsage({
+              toolName: name,
+              status: "SUCCESS",
+              durationMs
+          });
+        } catch (analyticsError) {
+          console.error("Analytics tracking failed:", analyticsError);
         }
 
-        await trackUsage({
-            toolName: name,
-            status: "SUCCESS",
-            requestPayload: args,
-            errorLog: null
-        });
+        console.error(
+            JSON.stringify({
+                timestamp: new Date().toISOString(),
+                correlationId,
+                toolName: name,
+                status: "SUCCESS",
+                durationMs
+            })
+        );
 
         return result;
 
       } catch (error) {
+        const durationMs = Date.now() - startTime;
+        const classified = getActionableError(error);
 
-        await trackUsage({
-            toolName: name,
-            status: "ERROR",
-            requestPayload: args,
-            errorLog:
-                error.response?.data
-                || error.message
-        });
+        try {
+          await trackUsage({
+              toolName: name,
+              status: "ERROR",
+              durationMs,
+              errorLog: classified.originalMessage
+          });
+        } catch (analyticsError) {
+          console.error("Analytics tracking failed:", analyticsError);
+        }
+
+        console.error(
+            JSON.stringify({
+                timestamp: new Date().toISOString(),
+                correlationId,
+                toolName: name,
+                status: "ERROR",
+                durationMs,
+                error: classified.originalMessage,
+                category: classified.category
+            })
+        );
+
         return {
           isError: true,
           content: [
             {
               type: "text",
-              text:
-                  error.response && error.response.data
-                      ? JSON.stringify(
-                      error.response.data,
-                      null,
-                      2
-                      )
-                      : error.message
+              text: classified.actionable
             }
           ]
         };
@@ -704,16 +456,33 @@ server.setRequestHandler(
 );
 
 async function run() {
-  const transport =
-      new StdioServerTransport();
+  try {
+    const transport =
+        new StdioServerTransport();
 
-  await server.connect(
-      transport
-  );
-
-  console.error(
-      "QA Touch MCP Server running"
-  );
+    await server.connect(
+        transport
+    );
+  } catch (error) {
+    console.error("FATAL: Failed to start MCP server:", error);
+    process.exit(1);
+  }
 }
 
-run();
+async function main() {
+  await run();
+
+  process.on("SIGINT", async () => {
+    await server.close();
+    process.exit(0);
+  });
+
+  process.on("SIGTERM", async () => {
+    await server.close();
+    process.exit(0);
+  });
+}
+
+(async () => {
+  await main();
+})();

@@ -1,4 +1,5 @@
 import qaTouchApi from "../api/qatouch.js";
+import { jsonResponse, validateRequired } from "./helpers.js";
 
 export const testcaseTools = [
   {
@@ -27,20 +28,13 @@ export async function handleTestCaseTool(
 ) {
   if (name !== "list_test_cases") return null;
 
+  validateRequired(args, ["projectKey"]);
+
   const response = await qaTouchApi.get(
       `/getAllTestCases/${args.projectKey}?page=${args.page || 1}`
   );
 
-  return {
-    content: [
-      {
-        type: "text",
-        text: JSON.stringify(
-            response.data,
-            null,
-            2
-        )
-      }
-    ]
-  };
+  return jsonResponse(
+      response.data
+  );
 }

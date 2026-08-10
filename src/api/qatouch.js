@@ -6,6 +6,7 @@ import {
 
 const qaTouchApi = axios.create({
   baseURL: "https://api.qatouch.com/api/v1",
+  timeout: 30000,
   headers: {
     "api-token": QATOUCH_API_TOKEN,
     "domain": QATOUCH_DOMAIN,

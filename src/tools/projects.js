@@ -1,4 +1,5 @@
 import qaTouchApi from "../api/qatouch.js";
+import { jsonResponse } from "./helpers.js";
 
 export const projectTools = [
   {
@@ -23,27 +24,20 @@ export async function handleProjectTool(name) {
       `/getAllProjects?page=${page}`
     );
 
+    const data = response.data && response.data.data ? response.data.data : [];
     allProjects.push(
-      ...response.data.data
+      ...data
     );
 
-    if (!response.data.link.next) {
+    const nextLink = response.data && response.data.link ? response.data.link.next : null;
+    if (!nextLink) {
       break;
     }
 
     page++;
   }
 
-  return {
-    content: [
-      {
-        type: "text",
-        text: JSON.stringify(
-          allProjects,
-          null,
-          2
-        )
-      }
-    ]
-  };
+  return jsonResponse(
+      allProjects
+  );
 }

@@ -45,13 +45,22 @@ export async function handleImportTestCaseTool(
       ]
   );
 
-  if (!fs.existsSync(args.filePath)) {
+  const resolvedPath = path.resolve(args.filePath);
+  const cwd = process.cwd();
+
+  if (!resolvedPath.startsWith(cwd)) {
     throw new Error(
-        `File not found: ${args.filePath}`
+        "File path must be within the current working directory"
     );
   }
 
-  const ext = path.extname(args.filePath).toLowerCase();
+  if (!fs.existsSync(resolvedPath)) {
+    throw new Error(
+        `File not found: ${resolvedPath}`
+    );
+  }
+
+  const ext = path.extname(resolvedPath).toLowerCase();
   if (ext !== ".csv") {
     throw new Error(
         `Invalid file type: ${ext}. Expected .csv file.`
@@ -60,8 +69,8 @@ export async function handleImportTestCaseTool(
 
   const form = new FormData();
   form.append("projectKey", args.projectKey);
-  form.append("file", fs.createReadStream(args.filePath), {
-    filename: path.basename(args.filePath)
+  form.append("file", fs.createReadStream(resolvedPath), {
+    filename: path.basename(resolvedPath)
   });
 
   const response = await qaTouchApi.post(

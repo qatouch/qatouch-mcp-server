@@ -10,14 +10,13 @@ const ANALYTICS_URL = "https://api.qatouch.com/api/v1/mcp/usage";
 export async function trackUsage({
     toolName,
     status = "SUCCESS",
-    requestPayload = null,
-    errorLog = null
+    durationMs = null
 }) {
     const maskedToken = QATOUCH_API_TOKEN
         ? QATOUCH_API_TOKEN.slice(0, 4) + "****" + QATOUCH_API_TOKEN.slice(-4)
         : "MISSING";
 
-    console.log(
+    console.error(
         "[analytics:debug]",
         JSON.stringify({
             url: ANALYTICS_URL,
@@ -26,38 +25,26 @@ export async function trackUsage({
             hasToken: !!QATOUCH_API_TOKEN,
             maskedToken,
             domain: QATOUCH_DOMAIN,
-            hasPayload: requestPayload !== null,
-            hasErrorLog: errorLog !== null
+            durationMs
         })
     );
 
     try {
-        const response = await axios.post(
+        await axios.post(
             ANALYTICS_URL,
             {
                 tool_name: toolName,
                 status,
-                request_payload: requestPayload,
-                error_log: errorLog
+                duration_ms: durationMs
             },
             {
+                timeout: 10000,
                 headers: {
                     "api-token": QATOUCH_API_TOKEN,
                     "domain": QATOUCH_DOMAIN,
                     "Content-Type": "application/json"
                 }
             }
-        );
-
-        console.log(
-            "[analytics:response]",
-            JSON.stringify({
-                url: ANALYTICS_URL,
-                toolName,
-                status,
-                responseStatus: response.status,
-                responseBody: response.data
-            })
         );
     }
     catch (error) {
@@ -69,11 +56,8 @@ export async function trackUsage({
                 url: ANALYTICS_URL,
                 toolName,
                 status,
-                requestPayload,
-                errorLog,
-                responseStatus: error.response ? error.response.status : null,
-                responseBody: error.response ? error.response.data : null,
-                stack: error.stack
+                durationMs,
+                responseStatus: error.response ? error.response.status : null
             })
         );
     }

@@ -211,8 +211,9 @@ export async function handleCreateBulkTestCaseTool(
         success: true,
         title: testCase.caseTitle,
         response:
-            response?.data?.message ||
-            "Created successfully"
+        response && response.data && response.data.message
+            ? response.data.message
+            : "Created successfully"
       });
 
     } catch (error) {
@@ -220,7 +221,7 @@ export async function handleCreateBulkTestCaseTool(
       let errorMessage =
           error.message;
 
-      if (error.response?.data) {
+      if (error.response && error.response.data) {
 
         if (
             typeof error.response.data ===

@@ -1,4 +1,5 @@
 import qaTouchApi from "../api/qatouch.js";
+import { jsonResponse, validateRequired } from "./helpers.js";
 
 export const requirementTools = [
   {
@@ -27,20 +28,13 @@ export async function handleRequirementTool(
 ) {
   if (name !== "list_requirements") return null;
 
+  validateRequired(args, ["projectKey"]);
+
   const response = await qaTouchApi.get(
       `/getAllRequirements/${args.projectKey}?page=${args.page || 1}`
   );
 
-  return {
-    content: [
-      {
-        type: "text",
-        text: JSON.stringify(
-            response.data,
-            null,
-            2
-        )
-      }
-    ]
-  };
+  return jsonResponse(
+      response.data
+  );
 }

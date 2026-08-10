@@ -7,7 +7,7 @@ export function classifyAxiosError(error) {
     };
   }
 
-  if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT" || error.message?.includes("timeout")) {
+  if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT" || (error.message && error.message.includes("timeout"))) {
     return {
       category: "TIMEOUT",
       message: "Request timed out",

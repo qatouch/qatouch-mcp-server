@@ -1,4 +1,5 @@
 import qaTouchApi from "../api/qatouch.js";
+import { jsonResponse, validateRequired } from "./helpers.js";
 
 export const defectTools = [
   {
@@ -23,20 +24,13 @@ export async function handleDefectTool(
 ) {
   if (name !== "list_defects") return null;
 
+  validateRequired(args, ["projectKey"]);
+
   const response = await qaTouchApi.get(
       `/getAllDefects/${args.projectKey}`
   );
 
-  return {
-    content: [
-      {
-        type: "text",
-        text: JSON.stringify(
-            response.data,
-            null,
-            2
-        )
-      }
-    ]
-  };
+  return jsonResponse(
+      response.data
+  );
 }

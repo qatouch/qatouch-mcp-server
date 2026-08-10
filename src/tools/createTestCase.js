@@ -119,11 +119,6 @@ export async function handleCreateTestCaseTool(
     return null;
   }
 
-  console.log(
-      "RAW TOOL ARGS:",
-      JSON.stringify(args, null, 2)
-  );
-
   if (args.steps_template) {
     throw new Error(
         "steps_template is not allowed. Provide steps[] only."
@@ -172,18 +167,6 @@ export async function handleCreateTestCaseTool(
     )
   };
 
-  console.log(
-      "QA TOUCH REQUEST:"
-  );
-
-  console.log(
-      JSON.stringify(
-          requestParams,
-          null,
-          2
-      )
-  );
-
   try {
     const response =
         await qaTouchApi.post(
@@ -193,18 +176,6 @@ export async function handleCreateTestCaseTool(
               params: requestParams
             }
         );
-
-    console.log(
-        "QA TOUCH RESPONSE:"
-    );
-
-    console.log(
-        JSON.stringify(
-            response.data,
-            null,
-            2
-        )
-    );
 
     return {
       content: [
@@ -219,22 +190,6 @@ export async function handleCreateTestCaseTool(
       ]
     };
   } catch (error) {
-    console.error(
-        "QA TOUCH API ERROR:"
-    );
-
-    if (error.response) {
-      console.error(
-          JSON.stringify(
-              error.response.data,
-              null,
-              2
-          )
-      );
-    } else {
-      console.error(error);
-    }
-
     throw error;
   }
 }
