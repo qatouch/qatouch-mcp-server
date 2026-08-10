@@ -4,6 +4,8 @@ Official Model Context Protocol (MCP) server for QA Touch.
 
 QA Touch is a modern test management platform for organizing projects, test cases, test runs, execution results, defects, requirements, releases, and QA reporting. This MCP server lets MCP-compatible AI assistants interact with QA Touch through a secure, tool-based interface.
 
+QA Touch - Claude Skills Repository - https://github.com/qatouch/qatouch-claude-skills
+
 ## Features
 
 - List and count QA Touch projects
@@ -113,8 +115,10 @@ Restart Claude Desktop after saving the file.
 | `create_release` | Create a new release or milestone in a QA Touch project |
 | `create_requirement` | Create a requirement in a QA Touch project requirement document |
 | `create_requirement_document` | Create a requirement document in a QA Touch project |
+| `create_test_run_with_modules` | Create a new test run by selecting one or more module keys |
 | `create_test_case` | Create a QA Touch test case with structured steps |
 | `create_text_test_case` | Create a QA Touch test case using the text template endpoint |
+| `import_test_cases` | Import test cases into a QA Touch project using a CSV file |
 | `list_defect_environments` | List all environments available for QA Touch defects |
 | `list_defect_issue_types` | List all issue types available for QA Touch defects |
 | `list_defect_severities` | List all severities available for QA Touch defects |
@@ -150,6 +154,7 @@ Restart Claude Desktop after saving the file.
 - Search test cases containing "login" in project ABC
 - Create a login test case in project ABC under section AUTH
 - Create 8 regression test cases for checkout in project ABC under section CHECKOUT
+- Import test cases from `/path/to/testcases.csv` into project ABC
 - List modules from project ABC
 - Create a module named Payment Gateway in project ABC
 - List releases from project ABC
@@ -164,6 +169,7 @@ Restart Claude Desktop after saving the file.
 - Search defects containing "timeout" in project ABC
 - Create a high priority defect in project ABC for checkout payment timeout
 - List test runs from project ABC
+- Create a test run named "Regression Run" in project "v7Nz" using modules "2BQXR" and "VeRDL", assign it to user "M7" under milestone "0DLB"
 - Show test run results for test run RUN1 in project ABC
 - Show result history for result RES1 in test run RUN1
 - List available test run statuses
