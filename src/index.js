@@ -245,6 +245,36 @@ import {
      handlePlaywrightScriptTool
    } from "./tools/playwrightScripts.js";
 
+import {
+     testResultStatisticsTools,
+     handleTestResultStatisticsTool
+   } from "./tools/getTestResultStatistics.js";
+
+import {
+     testCaseStatisticsTools,
+     handleTestCaseStatisticsTool
+   } from "./tools/getTestCaseStatistics.js";
+
+import {
+      projectInsightsTools,
+      handleProjectInsightsTool
+    } from "./tools/getProjectInsights.js";
+
+import {
+      moduleStatisticsTools,
+      handleModuleStatisticsTool
+    } from "./tools/getModuleStatistics.js";
+
+import {
+      requirementStatisticsTools,
+      handleRequirementStatisticsTool
+    } from "./tools/getRequirementStatistics.js";
+
+import {
+      issueStatisticsTools,
+      handleIssueStatisticsTool
+    } from "./tools/getIssueStatistics.js";
+
 const toolHandlers = [
   handleProjectTool,
   handleCountAllProjectTool,
@@ -292,7 +322,13 @@ const toolHandlers = [
   handleSearchProjectTool,
   handleProjectAnalyticsTool,
   handleUpdateTestCaseTool,
-  handlePlaywrightScriptTool
+  handlePlaywrightScriptTool,
+  handleTestResultStatisticsTool,
+  handleTestCaseStatisticsTool,
+  handleProjectInsightsTool,
+  handleModuleStatisticsTool,
+  handleRequirementStatisticsTool,
+  handleIssueStatisticsTool
 ];
 
 const server = new Server(
@@ -359,7 +395,13 @@ server.setRequestHandler(
             ...projectAnalyticsTools,
              ...updateTestCaseTools,
              ...playwrightScriptTools,
-         ]
+             ...testResultStatisticsTools,
+             ...testCaseStatisticsTools,
+             ...projectInsightsTools,
+             ...moduleStatisticsTools,
+             ...requirementStatisticsTools,
+             ...issueStatisticsTools,
+          ]
       };
     }
 );
