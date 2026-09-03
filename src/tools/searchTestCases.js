@@ -4,6 +4,7 @@ import {
   filterRecords,
   jsonResponse,
   normalizedSearchResponse,
+  validateApiResponse,
   validateRequired
 } from "./helpers.js";
 
@@ -49,6 +50,8 @@ export async function handleSearchTestCaseTool(
       await qaTouchApi.get(
           `/getAllTestCases/${args.projectKey}`
       );
+
+  validateApiResponse(response);
 
   const records =
       extractRecords(

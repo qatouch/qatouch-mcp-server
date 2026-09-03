@@ -15,18 +15,58 @@ export function validateRequired(
 }
 
 export function jsonResponse(data) {
+  let text;
+  try {
+    text = JSON.stringify(
+        data === undefined ? {} : data,
+        null,
+        2
+    );
+  } catch (error) {
+    text = JSON.stringify({
+      error: "Failed to serialize QA Touch response",
+      details: error.message
+    });
+  }
+
+  if (typeof text !== "string") {
+    text = JSON.stringify({});
+  }
+
   return {
     content: [
       {
         type: "text",
-        text: JSON.stringify(
-            data,
-            null,
-            2
-        )
+        text
       }
     ]
   };
+}
+
+export function validateApiResponse(response) {
+  if (!response || response.data === undefined || response.data === null) {
+    throw new Error(
+        "QA Touch API returned an empty response. This may indicate a timeout, rate limit, or server-side issue."
+    );
+  }
+
+  if (typeof response.data === "string") {
+    const trimmed = response.data.trim();
+
+    if (trimmed.startsWith("<") || trimmed.startsWith("<!")) {
+      throw new Error(
+          "QA Touch API returned an HTML response instead of JSON. The API may be returning an error page."
+      );
+    }
+
+    try {
+      JSON.parse(trimmed);
+    } catch (e) {
+      throw new Error(
+          "QA Touch API returned a non-JSON response: " + trimmed.substring(0, 200)
+      );
+    }
+  }
 }
 
 export function extractRecords(data) {

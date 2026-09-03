@@ -1,5 +1,5 @@
 import qaTouchApi from "../api/qatouch.js";
-import { jsonResponse, validateRequired } from "./helpers.js";
+import { jsonResponse, validateApiResponse, validateRequired } from "./helpers.js";
 
 export const moduleTools = [
   {
@@ -33,6 +33,8 @@ export async function handleModuleTool(
   const response = await qaTouchApi.get(
       `/getAllModules/${args.projectKey}?page=${args.page || 1}`
   );
+
+  validateApiResponse(response);
 
   return jsonResponse(
       response.data
