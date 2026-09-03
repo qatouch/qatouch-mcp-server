@@ -4,10 +4,10 @@ import {
   validateRequired
 } from "./helpers.js";
 
-export const issueStatisticsTools = [
+export const issueReportTools = [
   {
-    name: "get_issue_statistics",
-    description: "Retrieve defect/issue statistics for a project, including totals, open/closed/resolved counts, and breakdowns by status, priority, severity, bug type, creator, assignee, and linkage to test cases and test runs.",
+    name: "generate_issue_report",
+    description: "Generate a defect and issue report for a project. Provides issue counts, open/closed/resolved breakdowns, and analytics by status, priority, severity, bug type, creator, and assignee. Use this for defect reports, issue summaries, and bug analytics.",
     inputSchema: {
       type: "object",
       properties: {
@@ -21,11 +21,11 @@ export const issueStatisticsTools = [
   }
 ];
 
-export async function handleIssueStatisticsTool(
+export async function handleIssueReportTool(
     name,
     args
 ) {
-  if (name !== "get_issue_statistics") return null;
+  if (name !== "generate_issue_report") return null;
 
   validateRequired(
       args,

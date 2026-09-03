@@ -4,10 +4,10 @@ import {
   validateRequired
 } from "./helpers.js";
 
-export const projectInsightsTools = [
+export const projectReportTools = [
   {
-    name: "get_project_insights",
-    description: "Retrieve multi-dimensional project insights including burndown, velocity, open issues, defect trend, requirement coverage, automation coverage, tester productivity, release comparison, developer/tester TAT, and risk heatmap.",
+    name: "generate_project_report",
+    description: "Generate a comprehensive project report with multi-dimensional insights for QA Touch. Provides burndown charts, velocity tracking, open issues, defect trends, requirement coverage, automation coverage, tester productivity, release comparison, and risk heatmaps. Use this for project reports, analytics summaries, and quality insights.",
     inputSchema: {
       type: "object",
       properties: {
@@ -29,11 +29,11 @@ export const projectInsightsTools = [
   }
 ];
 
-export async function handleProjectInsightsTool(
+export async function handleProjectReportTool(
     name,
     args
 ) {
-  if (name !== "get_project_insights") return null;
+  if (name !== "generate_project_report") return null;
 
   validateRequired(
       args,

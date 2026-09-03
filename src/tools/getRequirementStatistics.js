@@ -4,10 +4,10 @@ import {
   validateRequired
 } from "./helpers.js";
 
-export const requirementStatisticsTools = [
+export const requirementReportTools = [
   {
-    name: "get_requirement_statistics",
-    description: "Retrieve requirement coverage and mapping statistics for a project, including total/mapped/unmapped requirements, coverage percentage, status breakdown, and per-document requirement counts.",
+    name: "generate_requirement_report",
+    description: "Generate a requirement coverage and mapping report for a project. Provides total, mapped, and unmapped requirement counts, coverage percentage, status breakdown, and per-document requirement counts. Use this for requirement reports, coverage analytics, and requirement traceability summaries.",
     inputSchema: {
       type: "object",
       properties: {
@@ -21,11 +21,11 @@ export const requirementStatisticsTools = [
   }
 ];
 
-export async function handleRequirementStatisticsTool(
+export async function handleRequirementReportTool(
     name,
     args
 ) {
-  if (name !== "get_requirement_statistics") return null;
+  if (name !== "generate_requirement_report") return null;
 
   validateRequired(
       args,

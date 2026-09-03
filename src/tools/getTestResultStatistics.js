@@ -4,10 +4,10 @@ import {
   validateRequired
 } from "./helpers.js";
 
-export const testResultStatisticsTools = [
+export const testResultReportTools = [
   {
-    name: "get_test_result_statistics",
-    description: "Retrieve aggregated test run result statistics for a project, including pass/fail counts, status distribution, and completion metrics. Supports optional date range, milestone, test run, and module filters.",
+    name: "generate_test_run_report",
+    description: "Generate a graphical test run report for a project. Provides pass/fail/blocked counts, execution count, status distribution, and completion metrics. Supports date range, milestone, test run, and module filters. Use this for test execution reports, test result summaries, and pass/fail analytics.",
     inputSchema: {
       type: "object",
       properties: {
@@ -41,11 +41,11 @@ export const testResultStatisticsTools = [
   }
 ];
 
-export async function handleTestResultStatisticsTool(
+export async function handleTestResultReportTool(
     name,
     args
 ) {
-  if (name !== "get_test_result_statistics") return null;
+  if (name !== "generate_test_run_report") return null;
 
   validateRequired(
       args,

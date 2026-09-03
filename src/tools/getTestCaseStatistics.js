@@ -4,10 +4,10 @@ import {
   validateRequired
 } from "./helpers.js";
 
-export const testCaseStatisticsTools = [
+export const testCaseReportTools = [
   {
-    name: "get_test_case_statistics",
-    description: "Retrieve comprehensive test case analytics for a project, including breakdowns by priority, type, tag, module, test suite, creator, updater, automation status, approval status, creation trend, data quality, template usage, test plan linkage, and requirement mapping.",
+    name: "generate_test_case_report",
+    description: "Generate a test case report with analytics for a project. Provides test case counts, breakdowns by priority, type, tag, module, test suite, automation status, and approval status. Supports filtering by module, priority, type, tag, creator, and date range. Use this for test case summaries, analytics, and reporting.",
     inputSchema: {
       type: "object",
       properties: {
@@ -65,11 +65,11 @@ export const testCaseStatisticsTools = [
   }
 ];
 
-export async function handleTestCaseStatisticsTool(
+export async function handleTestCaseReportTool(
     name,
     args
 ) {
-  if (name !== "get_test_case_statistics") return null;
+  if (name !== "generate_test_case_report") return null;
 
   validateRequired(
       args,

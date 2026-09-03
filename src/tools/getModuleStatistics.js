@@ -4,10 +4,10 @@ import {
   validateRequired
 } from "./helpers.js";
 
-export const moduleStatisticsTools = [
+export const moduleReportTools = [
   {
-    name: "get_module_statistics",
-    description: "Retrieve per-module test execution, defect, and requirement mapping statistics for a project, including pass rates, defect density, and overall aggregates.",
+    name: "generate_module_report",
+    description: "Generate a per-module test execution and defect report for a project. Provides module-level pass rates, defect density, test execution counts, and overall quality aggregates. Use this for module reports, quality analytics, and module-level insights.",
     inputSchema: {
       type: "object",
       properties: {
@@ -21,11 +21,11 @@ export const moduleStatisticsTools = [
   }
 ];
 
-export async function handleModuleStatisticsTool(
+export async function handleModuleReportTool(
     name,
     args
 ) {
-  if (name !== "get_module_statistics") return null;
+  if (name !== "generate_module_report") return null;
 
   validateRequired(
       args,

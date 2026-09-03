@@ -246,34 +246,34 @@ import {
    } from "./tools/playwrightScripts.js";
 
 import {
-     testResultStatisticsTools,
-     handleTestResultStatisticsTool
+     testResultReportTools,
+     handleTestResultReportTool
    } from "./tools/getTestResultStatistics.js";
 
 import {
-     testCaseStatisticsTools,
-     handleTestCaseStatisticsTool
+     testCaseReportTools,
+     handleTestCaseReportTool
    } from "./tools/getTestCaseStatistics.js";
 
 import {
-      projectInsightsTools,
-      handleProjectInsightsTool
-    } from "./tools/getProjectInsights.js";
+     projectReportTools,
+     handleProjectReportTool
+   } from "./tools/getProjectInsights.js";
 
 import {
-      moduleStatisticsTools,
-      handleModuleStatisticsTool
-    } from "./tools/getModuleStatistics.js";
+     moduleReportTools,
+     handleModuleReportTool
+   } from "./tools/getModuleStatistics.js";
 
 import {
-      requirementStatisticsTools,
-      handleRequirementStatisticsTool
-    } from "./tools/getRequirementStatistics.js";
+     requirementReportTools,
+     handleRequirementReportTool
+   } from "./tools/getRequirementStatistics.js";
 
 import {
-      issueStatisticsTools,
-      handleIssueStatisticsTool
-    } from "./tools/getIssueStatistics.js";
+     issueReportTools,
+     handleIssueReportTool
+   } from "./tools/getIssueStatistics.js";
 
 const toolHandlers = [
   handleProjectTool,
@@ -323,12 +323,12 @@ const toolHandlers = [
   handleProjectAnalyticsTool,
   handleUpdateTestCaseTool,
   handlePlaywrightScriptTool,
-  handleTestResultStatisticsTool,
-  handleTestCaseStatisticsTool,
-  handleProjectInsightsTool,
-  handleModuleStatisticsTool,
-  handleRequirementStatisticsTool,
-  handleIssueStatisticsTool
+  handleTestResultReportTool,
+  handleTestCaseReportTool,
+  handleProjectReportTool,
+  handleModuleReportTool,
+  handleRequirementReportTool,
+  handleIssueReportTool
 ];
 
 const server = new Server(
@@ -395,12 +395,12 @@ server.setRequestHandler(
             ...projectAnalyticsTools,
              ...updateTestCaseTools,
              ...playwrightScriptTools,
-             ...testResultStatisticsTools,
-             ...testCaseStatisticsTools,
-             ...projectInsightsTools,
-             ...moduleStatisticsTools,
-             ...requirementStatisticsTools,
-             ...issueStatisticsTools,
+             ...testResultReportTools,
+             ...testCaseReportTools,
+             ...projectReportTools,
+             ...moduleReportTools,
+             ...requirementReportTools,
+             ...issueReportTools,
           ]
       };
     }
