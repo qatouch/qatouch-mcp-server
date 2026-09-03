@@ -334,7 +334,7 @@ const toolHandlers = [
 const server = new Server(
     {
       name: "qatouch-mcp-server",
-      version: "1.1.6"
+      version: "1.1.7"
     },
     {
       capabilities: {
